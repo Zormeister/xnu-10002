@@ -425,6 +425,17 @@ __END_DECLS
 #define CPUFAMILY_INTEL_KABYLAKE        0x0f817246
 #define CPUFAMILY_INTEL_ICELAKE         0x38435547
 #define CPUFAMILY_INTEL_COMETLAKE       0x1cf8a03e
+#define CPUFAMILY_AMD_BULLDOZER         0xa67cf51c 
+#define CPUFAMILY_AMD_PILEDRIVER        0x26df7c2b
+#define CPUFAMILY_AMD_STEAMROLLER       0x94deb6cf
+#define CPUFAMILY_AMD_EXCAVATOR         0x016e0b7a
+#define CPUFAMILY_AMD_JAGUAR            0xa2809e27
+#define CPUFAMILY_AMD_PUMA              0x248fda86
+#define CPUFAMILY_AMD_ZEN               0xa0462bf0
+#define CPUFAMILY_AMD_ZENX              0x26af45f6 /* Zen+ */
+#define CPUFAMILY_AMD_ZEN2              0x7352772b
+#define CPUFAMILY_AMD_ZEN3              0x67f5ea5f
+#define CPUFAMILY_AMD_ZEN4              0x4cbfaf43
 #define CPUFAMILY_ARM_9                 0xe73283ae
 #define CPUFAMILY_ARM_11                0x8ff620d8
 #define CPUFAMILY_ARM_XSCALE            0x53b005f5

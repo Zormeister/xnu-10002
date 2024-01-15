@@ -852,7 +852,7 @@ i386_init(void)
 	rtclock_early_init();   /* mach_absolute_time() now functional */
 
 	kernel_debug_string_early("i386_init");
-	pstate_trace();
+	//pstate_trace();
 
 #if CONFIG_MCA
 	/* Initialize machine-check handling */
@@ -1016,10 +1016,10 @@ i386_init(void)
 
 	processor_bootstrap();
 
-	pstate_trace();
+	//pstate_trace();
 	kernel_debug_string_early("machine_startup");
 	machine_startup();
-	pstate_trace();
+	//pstate_trace();
 }
 
 static void __dead2

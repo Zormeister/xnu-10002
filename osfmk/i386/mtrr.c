@@ -63,7 +63,10 @@ decl_simple_lock_data(static, mtrr_lock);
 #define MTRR_LOCK()     simple_lock(&mtrr_lock, LCK_GRP_NULL);
 #define MTRR_UNLOCK()   simple_unlock(&mtrr_lock);
 
-//#define MTRR_DEBUG 1
+#ifdef DEBUG || DEVELOPMENT
+#define MTRR_DEBUG 1
+#endif
+
 #if     MTRR_DEBUG
 #define DBG(x...)       kprintf(x)
 #else
@@ -344,6 +347,8 @@ mtrr_update_action(void * cache_control_type)
 		set_cr3_raw(get_cr3_raw());
 	}
 
+	i386_cpuid_info_t *infop = cpuid_info();
+
 	if (CACHE_CONTROL_PAT == cache_control_type) {
 		/* Change PA6 attribute field to WC */
 		uint64_t pat = rdmsr64(MSR_IA32_CR_PAT);
@@ -355,8 +360,12 @@ mtrr_update_action(void * cache_control_type)
 		 * The five high-order bits of each field are reserved, and must be set to all 0s."
 		 * So, we zero-out the high 5 bits of the PA6 entry here:
 		 */
-		pat &= ~(0xFFULL << 48);
-		pat |=  (0x01ULL << 48);
+		if (infop->cpuid_ven == CPUID_VEN_INTEL) {
+			pat &= ~(0xFFULL << 48);
+			pat |=  (0x01ULL << 48);
+		} else if (infop->cpuid_ven == CPUID_VEN_AMD) {
+			pat = 0x70106;
+		}
 		wrmsr64(MSR_IA32_CR_PAT, pat);
 		DBG("CPU%d PAT: is  0x%016llx\n",
 		    get_cpu_number(), rdmsr64(MSR_IA32_CR_PAT));

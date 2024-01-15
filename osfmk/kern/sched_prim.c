@@ -802,7 +802,7 @@ check_monotonic_time(uint64_t ctime)
 	uint64_t last_dispatch = processor->last_dispatch;
 
 	if (last_dispatch > ctime) {
-		panic("Non-monotonic time: last_dispatch at 0x%llx, ctime 0x%llx",
+		kprintf("Non-monotonic time: last_dispatch at 0x%llx, ctime 0x%llx",
 		    last_dispatch, ctime);
 	}
 }
@@ -3015,7 +3015,7 @@ thread_invoke(
 #endif
 
 	if (ctime < thread->last_made_runnable_time) {
-		panic("Non-monotonic time: invoke at 0x%llx, runnable at 0x%llx",
+		kprintf("Non-monotonic time: invoke at 0x%llx, runnable at 0x%llx",
 		    ctime, thread->last_made_runnable_time);
 	}
 
@@ -3774,7 +3774,7 @@ thread_dispatch(
 #endif
 
 		if (processor->last_dispatch < self->last_made_runnable_time) {
-			panic("Non-monotonic time: dispatch at 0x%llx, runnable at 0x%llx",
+			kprintf("Non-monotonic time: dispatch at 0x%llx, runnable at 0x%llx",
 			    processor->last_dispatch, self->last_made_runnable_time);
 		}
 
